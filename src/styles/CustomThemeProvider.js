@@ -10,8 +10,13 @@ const CustomThemeProvider = ({ children }) => {
   const [mode, setMode] = useState(localThemeMode || LIGHT);
   const colorMode = useMemo(
     () => ({
-      toggleColorMode: () =>
-        setMode(prevMode => (prevMode === LIGHT ? DARK : LIGHT)),
+      toggleColorMode: () => {
+        setMode(prevMode => {
+          const themeMode = prevMode === LIGHT ? DARK : LIGHT;
+          localWorker.setItem(LS_KEY.THEME_MODE, themeMode);
+          return themeMode;
+        });
+      },
     }),
     [],
   );
@@ -20,11 +25,19 @@ const CustomThemeProvider = ({ children }) => {
       createTheme({
         palette: {
           mode,
+          ...(mode === 'light'
+            ? {
+                logoFilter: 'none',
+                brightGrey: '#f5f5f5',
+              }
+            : {
+                logoFilter: 'brightness(0) invert(1)',
+                brightGrey: '#383b42',
+              }),
         },
         breakpoints: {
           values: {
-            mobile: 990,
-            laptop: 1024,
+            mobile: 991,
           },
         },
       }),
