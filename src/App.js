@@ -1,12 +1,17 @@
 import React from 'react';
 import { Router } from 'routes';
+import { Global } from '@emotion/react';
+import { GlobalStyle, CustomThemeProvider } from './styles';
 import { GeneralLayout } from './layouts';
 
 const App = () => {
   return (
-    <GeneralLayout>
-      <Router />
-    </GeneralLayout>
+    <CustomThemeProvider>
+      <Global styles={GlobalStyle} />
+      <GeneralLayout>
+        <Router />
+      </GeneralLayout>
+    </CustomThemeProvider>
   );
 };
 
