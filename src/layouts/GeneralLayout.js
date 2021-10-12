@@ -10,8 +10,7 @@ const GeneralLayout = ({ children }) => {
   return (
     <div>
       {isMobile ? <MobileHeader /> : <DesktopHeader />}
-      <div style={{ backgroundColor: 'coral' }}>carousel</div>
-      <div>{children}</div>
+      <main>{children}</main>
     </div>
   );
 };

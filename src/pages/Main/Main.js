@@ -1,7 +1,12 @@
 import React from 'react';
+import { Feature } from './sections';
 
 const Main = () => {
-  return <h1>main</h1>;
+  return (
+    <div>
+      <Feature />
+    </div>
+  );
 };
 
 export default Main;
