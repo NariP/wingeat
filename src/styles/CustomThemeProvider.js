@@ -37,6 +37,7 @@ const CustomThemeProvider = ({ children }) => {
         },
         breakpoints: {
           values: {
+            xs: 0,
             mobile: 991,
           },
         },

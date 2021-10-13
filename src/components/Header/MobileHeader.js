@@ -7,26 +7,35 @@ const MobileHeader = () => {
   return (
     <HeaderWrapper>
       <LogoButton size={150} />
-      <div>
+      <ButtonWrapper>
         <CartButton>
           <ShoppingCartIcon />
         </CartButton>
         <ThemeToggle />
-      </div>
+      </ButtonWrapper>
     </HeaderWrapper>
   );
 };
 const HeaderWrapper = styled('header')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'end',
   backgroundColor: theme.palette.background.default,
   padding: '2.8rem 1rem',
+}));
+const ButtonWrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
   svg: {
     color: theme.palette.text.primary,
   },
-  '& > div > button': {
+  '& > span': {
+    position: 'relative',
+  },
+  '& > button': {
     marginLeft: '0.5em',
+    padding: 0,
+    position: 'relative',
+    bottom: 2,
   },
 }));
 export default MobileHeader;

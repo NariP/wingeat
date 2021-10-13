@@ -19,6 +19,9 @@ const DesktopHeader = () => {
 };
 const HeaderWrapper = styled('header')(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.text.disabled}`,
+  svg: {
+    color: theme.palette.text.primary,
+  },
 }));
 const HeaderTop = styled('div')(({ theme }) => ({
   display: 'flex',

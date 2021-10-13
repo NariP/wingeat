@@ -5,10 +5,10 @@ import { DesktopHeader, MobileHeader } from 'components';
 
 const GeneralLayout = ({ children }) => {
   const theme = useTheme();
-  const [MOBILE] = theme.breakpoints.keys;
-  const isMobile = useMediaQuery(theme.breakpoints.down(MOBILE));
+  const [XS, MOBILE] = theme.breakpoints.keys;
+  const isMobile = useMediaQuery(theme.breakpoints.between(XS, MOBILE));
   return (
-    <div>
+    <div style={{ backgroundColor: theme.palette.background.paper }}>
       {isMobile ? <MobileHeader /> : <DesktopHeader />}
       <main>{children}</main>
     </div>

@@ -3,6 +3,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Carousel from 'react-material-ui-carousel';
 import axiosInstance from 'api/apiController';
+import { FEATURE_URL } from 'utils/constants';
 
 const Feature = () => {
   const theme = useTheme();
@@ -31,12 +32,12 @@ const Feature = () => {
         },
       }}
     >
-      {images.map(({ image, mobileImage }, id) => {
+      {images?.map(({ image, mobileImage }, id) => {
         const imageUrl = isMobile ? mobileImage : image;
         return (
           <div key={id} style={{ width: '100%' }}>
             <img
-              src={`${BASE}${imageUrl}`}
+              src={`${FEATURE_URL}${imageUrl}`}
               alt={`featureImage${id + 1}`}
               style={{ width: 'inherit' }}
             />
@@ -46,5 +47,4 @@ const Feature = () => {
     </Carousel>
   );
 };
-const BASE = 'https://image.wingeat.com/';
 export default Feature;
