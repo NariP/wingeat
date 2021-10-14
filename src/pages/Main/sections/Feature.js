@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import Slider from 'react-slick';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
-import Carousel from 'react-material-ui-carousel';
+import { useTheme, styled } from '@mui/material/styles';
 import axiosInstance from 'api/apiController';
 import { FEATURE_URL } from 'utils/constants';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const Feature = () => {
   const theme = useTheme();
-  const [MOBILE] = theme.breakpoints.keys;
-  const isMobile = useMediaQuery(theme.breakpoints.down(MOBILE));
+  const [XS, MOBILE] = theme.breakpoints.keys;
+  const isMobile = useMediaQuery(theme.breakpoints.between(XS, MOBILE));
   const [images, setImages] = useState([]);
   useEffect(() => {
     const init = async () => {
@@ -17,34 +19,37 @@ const Feature = () => {
     };
     init();
   }, []);
-
   return (
-    <Carousel
-      autoPlay={true}
-      animation="slide"
-      stopAutoPlayOnHover={true}
-      indicatorContainerProps={{
-        style: {
-          textAlign: 'right',
-          bottom: 10,
-          right: 10,
-          position: 'absolute',
-        },
-      }}
-    >
+    <CustomSlider {...settings}>
       {images?.map(({ image, mobileImage }, id) => {
         const imageUrl = isMobile ? mobileImage : image;
         return (
-          <div key={id} style={{ width: '100%' }}>
-            <img
-              src={`${FEATURE_URL}${imageUrl}`}
-              alt={`featureImage${id + 1}`}
-              style={{ width: 'inherit' }}
-            />
-          </div>
+          <img
+            key={id}
+            src={`${FEATURE_URL}${imageUrl}`}
+            alt={`featureImage${id + 1}`}
+          />
         );
       })}
-    </Carousel>
+    </CustomSlider>
   );
 };
+const settings = {
+  dots: true,
+  arrows: false,
+  infinite: true,
+  autoplay: true,
+  pauseOnHover: true,
+  speed: 3000,
+  autoplaySpeed: 3000,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
+const CustomSlider = styled(Slider)({
+  '.slick-dots': {
+    width: 'auto',
+    bottom: 10,
+    right: 5,
+  },
+});
 export default Feature;
