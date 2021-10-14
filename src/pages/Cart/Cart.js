@@ -5,7 +5,7 @@ import { CartList, PaymentAmount } from './sections';
 const Cart = () => {
   const [paymentMap, setPaymentMap] = useState({});
   return (
-    <Container maxWidth="desktop">
+    <Container maxWidth="desktop" sx={{ minHeight: '100vh' }}>
       <Typography
         variant="pageTitle"
         component="div"
