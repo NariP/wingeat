@@ -14,13 +14,13 @@ const Cart = () => {
       >
         장바구니
       </Typography>
-      <Grid
-        container
-        columns={{ xs: 12, mobile: 6, desktop: 6 }}
-        justifyContent="space-around"
-      >
-        <CartList setPaymentMap={setPaymentMap} />
-        <PaymentAmount paymentMap={paymentMap} />
+      <Grid container spacing={4}>
+        <Grid item xs={12} mobile={8}>
+          <CartList setPaymentMap={setPaymentMap} />
+        </Grid>
+        <Grid item xs={12} mobile={4}>
+          <PaymentAmount paymentMap={paymentMap} />
+        </Grid>
       </Grid>
     </Container>
   );

@@ -17,7 +17,7 @@ const PaymentAmount = ({ paymentMap }) => {
         <div>결제 예정 금액</div>
         <RealPayment>{fCurrency(totalPayment)}원</RealPayment>
       </PaymentWrapper>
-      <Button variant="contained" sx={{ marginTop: '1rem' }}>
+      <Button variant="contained" sx={{ marginTop: '1rem', width: '100%' }}>
         주문하기
       </Button>
     </Wrapper>
@@ -27,7 +27,6 @@ PaymentAmount.prototype = {
   paymentMap: PropTypes.object,
 };
 const Wrapper = styled('div')(({ theme }) => ({
-  width: '20%',
   color: theme.palette.text.primary,
 }));
 const PaymentWrapper = styled('div')(({ theme }) => ({
