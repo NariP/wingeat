@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { delay, call, put, takeEvery } from 'redux-saga/effects';
 import axiosInstance from 'api/apiController';
 
 import {
@@ -15,7 +15,7 @@ const goodsApi = pageNum => {
 const request = function* (action) {
   try {
     const res = yield call(goodsApi, action.payload);
-    yield put(goodsRequestSuccess(res));
+    yield put(goodsRequestSuccess({ res, page: action.payload }));
   } catch (error) {
     yield put(goodsRequestFailure(error));
   }

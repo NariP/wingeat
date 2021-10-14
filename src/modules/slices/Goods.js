@@ -5,6 +5,7 @@ const initialState = {
   info: [],
   isLoading: false,
   error: null,
+  renderFinish: false,
 };
 
 export const goodsSlice = createSlice({
@@ -16,8 +17,11 @@ export const goodsSlice = createSlice({
       state.error = null;
     },
     goodsRequestSuccess: (state, action) => {
+      const { res, page } = action.payload;
       state.isLoading = false;
-      state.info = state.info.concat(...action.payload.data);
+      // state.info = state.info.concat(...res.data);
+      state.info.push(...res.data);
+      state.renderFinish = page === 6;
     },
     goodsRequestFailure: (state, action) => {
       state.isLoading = false;
@@ -30,3 +34,4 @@ export const { goodsRequest, goodsRequestSuccess, goodsRequestFailure } =
   goodsSlice.actions;
 export const getGoods = state => state.goods.info;
 export const getGoodsRequestState = state => state.goods.isLoading;
+export const getIsFinished = state => state.goods.renderFinish;

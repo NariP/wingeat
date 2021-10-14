@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   goodsRequest,
   getGoods,
+  getIsFinished,
   // getGoodsRequestState,
 } from 'modules/slices/Goods';
 
@@ -13,8 +14,10 @@ const List = () => {
   const dispatch = useDispatch();
   const goodsInfo = useSelector(getGoods);
   // const goodsLoading = useSelector(getGoodsRequestState);
+  const renderFinish = useSelector(getIsFinished);
   const [page, setPage] = useState(1);
   useEffect(() => {
+    if (renderFinish) return;
     page <= 6 && dispatch(goodsRequest(page));
   }, [page, dispatch]);
 
