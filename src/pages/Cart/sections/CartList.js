@@ -9,9 +9,13 @@ const CartList = ({ setPaymentMap }) => {
   const items = localWorker.getItem(LS_KEY.WE_CART);
   return (
     <Wrapper>
-      {items.map(item => (
-        <CartItem key={item.id} {...item} setPaymentMap={setPaymentMap} />
-      ))}
+      {!items?.length ? (
+        <div>장바구니에 담긴 상품 없음</div>
+      ) : (
+        items.map(item => (
+          <CartItem key={item.id} {...item} setPaymentMap={setPaymentMap} />
+        ))
+      )}
     </Wrapper>
   );
 };

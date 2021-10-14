@@ -10,7 +10,7 @@ function Observable({ setPage }) {
     () =>
       new IntersectionObserver(([{ isIntersecting }]) => {
         isIntersecting && setPage(page => (page >= 6 ? page : page + 1));
-        isIntersecting && console.log('ddd');
+        // isIntersecting && console.log('ddd');
       }),
     [setPage],
   );

@@ -18,8 +18,6 @@ export const setLocalCartList = data => {
   }
 
   if (!findLocalItemById(data.id)) {
-    console.log('일치하는 아이디 없음');
-    console.log([...original, { ...data, amount: 1 }]);
     localWorker.setItem(KEY, [...original, { ...data, amount: 1 }]);
     return;
   }
