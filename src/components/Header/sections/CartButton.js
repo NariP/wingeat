@@ -2,12 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { PATH } from 'routes';
 import { Badge } from '@mui/material';
-import { localWorker } from 'utils';
-import { LS_KEY } from 'utils/constants';
+import { getAmount } from 'modules/slices/Cart';
+import { useSelector } from 'react-redux';
 
 const CartButton = ({ children }) => {
-  // TODO: 관련 작업 있을 때마다 변경되게끔 수정하기
-  const cartItemAmount = localWorker.getItem(LS_KEY.WE_CART)?.length || 0;
+  const cartItemAmount = useSelector(getAmount);
   return (
     <Badge
       badgeContent={cartItemAmount}

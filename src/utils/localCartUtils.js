@@ -1,4 +1,4 @@
-import { localWorker } from 'utils';
+import { localWorker } from 'utils/index';
 import { LS_KEY } from 'utils/constants';
 
 const KEY = LS_KEY.WE_CART;

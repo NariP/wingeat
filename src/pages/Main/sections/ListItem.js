@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import {
@@ -14,20 +15,21 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import { fCurrency } from 'utils';
 import { FEATURE_URL } from 'utils/constants';
-import { setLocalCartList, findLocalItemById } from './mainUtils';
+import { fCurrency } from 'utils';
+import { addCartItem } from 'modules/slices/Cart';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const ListItem = ({ itemName, price, image, id }) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
   const cardActionHandler = () => {
     setOpen(true);
-    setLocalCartList({ id: Number(id), itemName, price, image });
+    dispatch(addCartItem({ id: Number(id), itemName, price, image }));
   };
 
   const handleClose = () => {
@@ -62,9 +64,7 @@ const ListItem = ({ itemName, price, image, id }) => {
       >
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            {findLocalItemById(Number(id))
-              ? `"${itemName}" 의 장바구니 내 수량을 추가했습니다.`
-              : `"${itemName}" 을 장바구니에 추가했습니다.`}
+            "{itemName}" 을 장바구니에 추가했습니다.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

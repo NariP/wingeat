@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { styled } from '@mui/material/styles';
@@ -9,14 +10,12 @@ import {
   IconButton,
   Button,
 } from '@mui/material';
-import { fCurrency } from 'utils';
 import { FEATURE_URL } from 'utils/constants';
-import {
-  changeLocalCartItemAmount,
-  deleteLocalCartItem,
-} from 'pages/Main/sections/mainUtils';
+import { fCurrency } from 'utils';
+import { deleteCartItem, changeItemAmount } from 'modules/slices/Cart';
 
 const CartItem = ({ id, price, amount, itemName, image, setPaymentMap }) => {
+  const dispatch = useDispatch();
   const [checked, setChecked] = useState(true);
   const [currentAmount, setCurrentAmount] = useState(amount);
   const [totalPrice, setTotalPrice] = useState(price * amount);
@@ -24,19 +23,19 @@ const CartItem = ({ id, price, amount, itemName, image, setPaymentMap }) => {
     setChecked(!checked);
   };
   const deleteItem = () => {
-    deleteLocalCartItem(id);
+    dispatch(deleteCartItem(id));
   };
   const increase = () => {
     const newAmount = currentAmount + 1;
     setCurrentAmount(newAmount);
     setTotalPrice(price * newAmount);
-    changeLocalCartItemAmount(id, newAmount);
+    dispatch(changeItemAmount({ id, newAmount }));
   };
   const decrease = () => {
     const newAmount = currentAmount > 1 ? currentAmount - 1 : currentAmount;
     setCurrentAmount(newAmount);
     setTotalPrice(price * newAmount);
-    changeLocalCartItemAmount(id, newAmount);
+    dispatch(changeItemAmount({ id, newAmount }));
   };
   useEffect(() => {
     setPaymentMap(prev => ({ ...prev, [id]: { checked, totalPrice } }));
@@ -90,6 +89,9 @@ const Wrapper = styled(Paper)(({ theme }) => ({
     position: 'absolute',
     top: 0,
     right: 0,
+  },
+  '& + &': {
+    marginTop: '1rem',
   },
 }));
 const DetailWrapper = styled('div')({
