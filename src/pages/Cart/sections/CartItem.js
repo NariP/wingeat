@@ -11,16 +11,21 @@ import {
   Button,
 } from '@mui/material';
 import { FEATURE_URL } from 'utils/constants';
-import { fCurrency } from 'utils';
-import { deleteCartItem, changeItemAmount } from 'modules/slices/Cart';
+import { fCurrency, getIsLocalCartItemChecked } from 'utils';
+import {
+  deleteCartItem,
+  changeItemAmount,
+  toggleChecked,
+} from 'modules/slices/Cart';
 
-const CartItem = ({ id, price, amount, itemName, image, setPaymentMap }) => {
+const CartItem = ({ id, price, amount, itemName, image }) => {
   const dispatch = useDispatch();
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(getIsLocalCartItemChecked(id));
   const [currentAmount, setCurrentAmount] = useState(amount);
   const [totalPrice, setTotalPrice] = useState(price * amount);
   const checkBoxHandler = () => {
     setChecked(!checked);
+    dispatch(toggleChecked(id));
   };
   const deleteItem = () => {
     dispatch(deleteCartItem(id));
@@ -37,9 +42,6 @@ const CartItem = ({ id, price, amount, itemName, image, setPaymentMap }) => {
     setTotalPrice(price * newAmount);
     dispatch(changeItemAmount({ id, newAmount }));
   };
-  useEffect(() => {
-    setPaymentMap(prev => ({ ...prev, [id]: { checked, totalPrice } }));
-  }, [checked, totalPrice, id]);
   return (
     <Wrapper elevation={3}>
       <IconButton onClick={deleteItem}>
@@ -76,7 +78,6 @@ CartItem.prototype = {
   amount: PropTypes.number,
   itemName: PropTypes.string,
   image: PropTypes.string,
-  setPaymentMap: PropTypes.func,
 };
 const Wrapper = styled(Paper)(({ theme }) => ({
   display: 'flex',

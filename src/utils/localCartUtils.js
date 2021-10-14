@@ -13,17 +13,20 @@ export const findLocalItemById = id => {
 export const setLocalCartList = data => {
   const original = localWorker.getItem(KEY);
   if (isEmptyCart(original)) {
-    localWorker.setItem(KEY, [{ ...data, amount: 1 }]);
+    localWorker.setItem(KEY, [{ ...data, amount: 1, checked: true }]);
     return;
   }
 
   if (!findLocalItemById(data.id)) {
-    localWorker.setItem(KEY, [...original, { ...data, amount: 1 }]);
+    localWorker.setItem(KEY, [
+      ...original,
+      { ...data, amount: 1, checked: true },
+    ]);
     return;
   }
   const newData = original.map(ele => {
     if (ele.id !== data.id) return ele;
-    return { ...ele, amount: ele.amount + 1 };
+    return { ...ele, amount: ele.amount + 1, checked: true };
   });
 
   localWorker.setItem(KEY, [...newData]);
@@ -46,4 +49,23 @@ export const deleteLocalCartItem = id => {
 
   const newData = original.filter(ele => ele.id !== id);
   localWorker.setItem(KEY, [...newData]);
+};
+
+export const toggleLocalCartItemChecked = id => {
+  const original = localWorker.getItem(KEY);
+  if (isEmptyCart(original)) return;
+
+  const newData = original.map(ele => {
+    if (ele.id !== id) return ele;
+    return { ...ele, checked: !ele.checked };
+  });
+  localWorker.setItem(KEY, [...newData]);
+};
+
+export const getIsLocalCartItemChecked = id => {
+  const original = localWorker.getItem(KEY);
+  if (isEmptyCart(original)) return true;
+
+  const targetItem = original.filter(ele => ele.id === id);
+  return targetItem[0].checked;
 };

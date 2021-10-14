@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import { CartList, PaymentAmount } from './sections';
+import { useSelector } from 'react-redux';
+import { getCartItems } from '../../modules/slices/Cart';
 
 const Cart = () => {
-  const [paymentMap, setPaymentMap] = useState({});
+  const cartItems = useSelector(getCartItems);
+
   return (
     <Container maxWidth="desktop" sx={{ minHeight: '100vh' }}>
       <Typography
@@ -16,10 +19,10 @@ const Cart = () => {
       </Typography>
       <Grid container spacing={4}>
         <Grid item xs={12} mobile={8}>
-          <CartList setPaymentMap={setPaymentMap} />
+          <CartList cartItems={cartItems} />
         </Grid>
         <Grid item xs={12} mobile={4}>
-          <PaymentAmount paymentMap={paymentMap} />
+          <PaymentAmount cartItems={cartItems} />
         </Grid>
       </Grid>
     </Container>

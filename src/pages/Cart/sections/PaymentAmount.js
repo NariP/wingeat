@@ -1,16 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { fCurrency } from 'utils';
-import PropTypes from 'prop-types';
 
-const PaymentAmount = ({ paymentMap }) => {
-  const totalPayment = Object.values(paymentMap).reduce(
-    (acc, { checked, totalPrice }) => {
-      return checked ? acc + totalPrice : acc;
-    },
-    0,
-  );
+const PaymentAmount = ({ cartItems }) => {
+  const totalPayment =
+    cartItems?.reduce((acc, { checked, amount, price }) => {
+      return checked ? acc + amount * price : acc;
+    }, 0) || 0;
+
   return (
     <Wrapper>
       <PaymentWrapper>
@@ -24,7 +23,7 @@ const PaymentAmount = ({ paymentMap }) => {
   );
 };
 PaymentAmount.prototype = {
-  paymentMap: PropTypes.object,
+  cartItems: PropTypes.array,
 };
 const Wrapper = styled('div')(({ theme }) => ({
   color: theme.palette.text.primary,

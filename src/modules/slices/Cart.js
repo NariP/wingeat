@@ -4,6 +4,7 @@ import {
   setLocalCartList,
   deleteLocalCartItem,
   changeLocalCartItemAmount,
+  toggleLocalCartItemChecked,
 } from 'utils';
 import { LS_KEY } from 'utils/constants';
 
@@ -34,9 +35,13 @@ export const cartSlice = createSlice({
       changeLocalCartItemAmount(id, newAmount);
       state.items = localWorker.getItem(LS_KEY.WE_CART);
     },
+    toggleChecked: (state, action) => {
+      toggleLocalCartItemChecked(action.payload);
+      state.items = localWorker.getItem(LS_KEY.WE_CART);
+    },
   },
 });
-export const { addCartItem, deleteCartItem, changeItemAmount } =
+export const { addCartItem, deleteCartItem, changeItemAmount, toggleChecked } =
   cartSlice.actions;
 export const getAmount = state => state.cart.amount;
 export const getCartItems = state => state.cart.items;
