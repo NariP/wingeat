@@ -23,7 +23,6 @@ export const setLocalCartList = data => {
     localWorker.setItem(KEY, [...original, { ...data, amount: 1 }]);
     return;
   }
-  console.log('e');
   const newData = original.map(ele => {
     if (ele.id !== data.id) return ele;
     return { ...ele, amount: ele.amount + 1 };

@@ -14,6 +14,7 @@ import {
   Typography,
   Button,
 } from '@mui/material';
+import { fCurrency } from 'utils';
 import { FEATURE_URL } from 'utils/constants';
 import { setLocalCartList, findLocalItemById } from './mainUtils';
 
@@ -48,7 +49,7 @@ const ListItem = ({ itemName, price, image, id }) => {
             {itemName}
           </Typography>
           <Typography variant="subtitle2" color="text.secondary">
-            {price}원
+            {fCurrency(price)}원
           </Typography>
         </CardBody>
       </Card>
@@ -81,6 +82,7 @@ ListItem.prototype = {
   id: PropTypes.string.isRequired,
 };
 const CardBody = styled(CardContent)({
+  padding: '1rem 0.5rem',
   minHeight: '6.62em',
   maxHeight: '6.62em',
   wordBreak: 'normal',

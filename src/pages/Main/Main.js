@@ -1,7 +1,7 @@
 import React from 'react';
-import { Feature, MainHeader, List } from './sections';
 import { styled } from '@mui/material/styles';
 import { Container } from '@mui/material';
+import { Feature, MainHeader, List } from './sections';
 
 const Main = () => {
   return (

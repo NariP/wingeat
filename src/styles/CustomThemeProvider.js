@@ -39,6 +39,13 @@ const CustomThemeProvider = ({ children }) => {
           values: {
             xs: 0,
             mobile: 991,
+            desktop: 1200,
+          },
+        },
+        typography: {
+          pageTitle: {
+            fontSize: '2em',
+            fontWeight: 'bold',
           },
         },
       }),
