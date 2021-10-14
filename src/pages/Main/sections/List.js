@@ -45,12 +45,11 @@ const List = () => {
           );
         })}
         {/*{goodsLoading && <div>로딩 중..</div>}*/}
-        {/*{page === 6 && (*/}
-        {/*  <Grid item mobile={12}>*/}
-        {/*    End*/}
-        {/*  </Grid>*/}
-        {/*)}*/}
-        <Observable setPage={setPage} />
+        {page < 6 ? (
+          <Observable setPage={setPage} />
+        ) : (
+          <div>모든 상품이 로드되었습니다.</div>
+        )}
       </Grid>
     </div>
   );

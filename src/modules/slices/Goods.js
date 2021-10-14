@@ -17,9 +17,7 @@ export const goodsSlice = createSlice({
     },
     goodsRequestSuccess: (state, action) => {
       state.isLoading = false;
-      // console.log('page' + action.payload.page);
-      // state.info.push(...action.payload.res.data);
-      state.info = state.info.concat(...action.payload.res.data);
+      state.info = state.info.concat(...action.payload.data);
     },
     goodsRequestFailure: (state, action) => {
       state.isLoading = false;

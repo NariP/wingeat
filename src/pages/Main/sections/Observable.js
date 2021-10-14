@@ -1,17 +1,16 @@
 import React, { useRef, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-Observable.prototype = {
-  setPage: PropTypes.func, // () => void
-};
-function Observable({ setPage }) {
+const Observable = ({ setPage }) => {
   const observableTrigger = useRef(null);
   const observer = useMemo(
     () =>
-      new IntersectionObserver(([{ isIntersecting }]) => {
-        isIntersecting && setPage(page => (page >= 6 ? page : page + 1));
-        // isIntersecting && console.log('ddd');
-      }),
+      new IntersectionObserver(
+        ([{ isIntersecting }]) => {
+          isIntersecting && setPage(page => page + 1);
+        },
+        { threshold: 1.0 },
+      ),
     [setPage],
   );
 
@@ -23,6 +22,8 @@ function Observable({ setPage }) {
   }, [observer]);
 
   return <div ref={observableTrigger} />;
-}
-
+};
+Observable.prototype = {
+  setPage: PropTypes.func, // () => void
+};
 export default Observable;
