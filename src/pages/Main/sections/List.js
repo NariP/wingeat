@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Grid } from '@mui/material';
 import ListItem from './ListItem';
 import Observable from './Observable';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  goodsRequest,
   getGoods,
-  getIsFinished,
-  // getGoodsRequestState,
+  getPageNumber,
+  getGoodsRequestState,
 } from 'modules/slices/Goods';
 
 const List = () => {
-  const dispatch = useDispatch();
   const goodsInfo = useSelector(getGoods);
-  // const goodsLoading = useSelector(getGoodsRequestState);
-  const renderFinish = useSelector(getIsFinished);
-  const [page, setPage] = useState(1);
-  useEffect(() => {
-    if (renderFinish) return;
-    page <= 6 && dispatch(goodsRequest(page));
-  }, [page, dispatch]);
-
+  const listPage = useSelector(getPageNumber);
+  const goodsLoading = useSelector(getGoodsRequestState);
   return (
     <div>
       <Grid
@@ -47,9 +39,9 @@ const List = () => {
             </Grid>
           );
         })}
-        {/*{goodsLoading && <div>로딩 중..</div>}*/}
-        {page < 6 ? (
-          <Observable setPage={setPage} />
+        {goodsLoading && <div>로딩 중..</div>}
+        {listPage < 7 ? (
+          <Observable listPage={listPage} />
         ) : (
           <div>모든 상품이 로드되었습니다.</div>
         )}

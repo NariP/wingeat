@@ -1,17 +1,20 @@
 import React, { useRef, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { goodsRequest } from 'modules/slices/Goods';
 
-const Observable = ({ setPage }) => {
+const Observable = ({ listPage }) => {
+  const dispatch = useDispatch();
   const observableTrigger = useRef(null);
   const observer = useMemo(
     () =>
       new IntersectionObserver(
         ([{ isIntersecting }]) => {
-          isIntersecting && setPage(page => page + 1);
+          isIntersecting && dispatch(goodsRequest(listPage));
         },
         { threshold: 1.0 },
       ),
-    [setPage],
+    [listPage, dispatch],
   );
 
   useEffect(() => {
@@ -24,6 +27,6 @@ const Observable = ({ setPage }) => {
   return <div ref={observableTrigger} />;
 };
 Observable.prototype = {
-  setPage: PropTypes.func, // () => void
+  listPage: PropTypes.number,
 };
 export default Observable;

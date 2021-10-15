@@ -1,4 +1,4 @@
-import { delay, call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import axiosInstance from 'api/apiController';
 
 import {
@@ -15,7 +15,7 @@ const goodsApi = pageNum => {
 const request = function* (action) {
   try {
     const res = yield call(goodsApi, action.payload);
-    yield put(goodsRequestSuccess({ res, page: action.payload }));
+    yield put(goodsRequestSuccess(res));
   } catch (error) {
     yield put(goodsRequestFailure(error));
   }
@@ -23,5 +23,5 @@ const request = function* (action) {
 
 // Watch 함수
 export function* watchGoodsSaga() {
-  yield takeEvery(goodsRequest, request);
+  yield takeLatest(goodsRequest, request);
 }
